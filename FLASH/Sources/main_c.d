@@ -13,5 +13,6 @@ Sources/main_c.obj: \
 	C:/Users/Danibw/workspace/motorSerialNuevo/Project_Headers/DirectionManager.h \
 	C:/Users/Danibw/workspace/motorSerialNuevo/Project_Headers/TimersManager.h \
 	C:/Users/Danibw/workspace/motorSerialNuevo/Project_Headers/StringUtilis.h \
-	C:/Users/Danibw/workspace/motorSerialNuevo/Project_Headers/MessageManager.h 
+	C:/Users/Danibw/workspace/motorSerialNuevo/Project_Headers/MessageManager.h \
+	C:/Users/Danibw/workspace/motorSerialNuevo/Project_Headers/Constants.h 
 

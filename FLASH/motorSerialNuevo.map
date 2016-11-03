@@ -15,6 +15,7 @@ FILE SECTION
 ADCManager_c.obj                        Model: SMALL,         Lang: ANSI-C
 DelayManager_c.obj                      Model: SMALL,         Lang: ANSI-C
 DirectionManager_c.obj                  Model: SMALL,         Lang: ANSI-C
+DistanceManager_c.obj                   Model: SMALL,         Lang: ANSI-C
 MTIM_c.obj                              Model: SMALL,         Lang: ANSI-C
 MessageManager_c.obj                    Model: SMALL,         Lang: ANSI-C
 MotorManager_c.obj                      Model: SMALL,         Lang: ANSI-C
@@ -35,7 +36,7 @@ _startupData is allocated at 0xE084 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x100     150
-  _Copy    *toCopyDownBeg 0xED5D
+  _Copy    *toCopyDownBeg 0xEDEF
 } _startupData;
 
 *********************************************************************************************
@@ -45,9 +46,9 @@ Section Name                    Size  Type     From       To       Segment
 .data                             10   R/W      0x100      0x109   RAM
 .init                            132     R     0xE000     0xE083   ROM
 .startData                        14     R     0xE084     0xE091   ROM
-.rodata                          120     R     0xE092     0xE109   ROM
-.text                           3155     R     0xE10A     0xED5C   ROM
-.copy                             15     R     0xED5D     0xED6B   ROM
+.rodata                          126     R     0xE092     0xE10F   ROM
+.text                           3295     R     0xE110     0xEDEE   ROM
+.copy                             15     R     0xEDEF     0xEDFD   ROM
 .abs_section_ffe6                  2     R     0xFFE6     0xFFE7   .absSeg0
 .abs_section_ffe0                  2     R     0xFFE0     0xFFE1   .absSeg1
 .abs_section_ffde                  2     R     0xFFDE     0xFFDF   .absSeg2
@@ -131,7 +132,7 @@ Section Name                    Size  Type     From       To       Segment
 .vectSeg77_vect                    2     R     0xFFFE     0xFFFF   .vectSeg77
 
 Summary of section sizes per section type:
-READ_ONLY (R):         D74 (dec:     3444)
+READ_ONLY (R):         E06 (dec:     3590)
 READ_WRITE (R/W):       D6 (dec:      214)
 NO_INIT (N/I):          55 (dec:       85)
 
@@ -147,39 +148,43 @@ OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 MODULE:                 -- ADCManager_c.obj --
 - PROCEDURES:
-     ADC_Init                                  E10A       6       6       1   .text       
-     ADC_isDataReady                           E110       8       8       1   .text       
-     ADC_Read                                  E118       3       3       1   .text       
+     ADC_Init                                  E110       6       6       1   .text       
+     ADC_isDataReady                           E116       8       8       1   .text       
+     ADC_Read                                  E11E       3       3       1   .text       
 - VARIABLES:
 MODULE:                 -- DelayManager_c.obj --
 - PROCEDURES:
-     DelayManager_Init                         E11B      1D      29       2   .text       
-     DelayManager_getTimeUs                    E138      38      56       1   .text       
+     DelayManager_Init                         E121      1D      29       2   .text       
+     DelayManager_getTimeUs                    E13E      38      56       1   .text       
 - VARIABLES:
 MODULE:                 -- DirectionManager_c.obj --
 - PROCEDURES:
-     DirectionManager_Init                     E170       6       6       1   .text       
-     DirectionManager_setDirection             E176       4       4       4   .text       
-     DirectionManager_getDirection             E17A       4       4       3   .text       
+     DirectionManager_Init                     E176       6       6       1   .text       
+     DirectionManager_setDirection             E17C       4       4       4   .text       
+     DirectionManager_getDirection             E180       4       4       4   .text       
 - VARIABLES:
      direction                                  173       1       1       3   .common     
+MODULE:                 -- DistanceManager_c.obj --
+- PROCEDURES:
+     DistanceManager_Dist2Degrees              E184      10      16       1   .text       
+- VARIABLES:
 MODULE:                 -- MTIM_c.obj --
 - PROCEDURES:
-     MTIM_Init                                 E17E       A      10       1   .text       
-     MTIM_RegisterIsrCallback                  E188       9       9       1   .text       
-     MTIM_isr                                  E191       D      13       1   .text       
+     MTIM_Init                                 E194       A      10       1   .text       
+     MTIM_RegisterIsrCallback                  E19E       9       9       1   .text       
+     MTIM_isr                                  E1A7       D      13       1   .text       
 - VARIABLES:
      sMtimIsrCallback                           10A       2       2       2   .bss        
      _Vector_12                                FFE6       2       2       0   .abs_section_ffe6
 MODULE:                 -- MessageManager_c.obj --
 - PROCEDURES:
-     MsgManager_Init                           E19E      1A      26       1   .text       
-     MsgManager_SendMessage                    E1B8       3       3       3   .text       
-     MsgManager_TxisBusy                       E1BB       3       3       3   .text       
-     MsgManager_GetMessageReceived             E1BE      71     113       1   .text       
-     MsgManager_isNewMessageReady              E22F       B      11       1   .text       
-     MsgManager_clearMsg                       E23A      18      24       1   .text       
-     MsgManager_ReceiveMessage                 E252      47      71       1   .text       
+     MsgManager_Init                           E1B4      1A      26       1   .text       
+     MsgManager_SendMessage                    E1CE       3       3       3   .text       
+     MsgManager_TxisBusy                       E1D1       3       3       3   .text       
+     MsgManager_GetMessageReceived             E1D4      71     113       1   .text       
+     MsgManager_isNewMessageReady              E245       B      11       1   .text       
+     MsgManager_clearMsg                       E250      18      24       1   .text       
+     MsgManager_ReceiveMessage                 E268      47      71       1   .text       
 - VARIABLES:
      MsgManager_Buffer1                         10C      1A      26       4   .bss        
      MsgManager_Buffer2                         126      1A      26       4   .bss        
@@ -189,23 +194,23 @@ MODULE:                 -- MessageManager_c.obj --
      RxIndex                                    143       1       1       4   .bss        
 MODULE:                 -- MotorManager_c.obj --
 - PROCEDURES:
-     MotorManager_Init                         E299      13      19       1   .text       
-     MotorManager_RotateCounterClockwise       E2AC      14      20       1   .text       
-     MotorManager_RotateClockwise              E2C0      14      20       1   .text       
+     MotorManager_Init                         E2AF      13      19       1   .text       
+     MotorManager_RotateCounterClockwise       E2C2      14      20       1   .text       
+     MotorManager_RotateClockwise              E2D6      14      20       1   .text       
 - VARIABLES:
      half_step_sequence                        E092       8       8       3   .rodata     
      s_index                                    144       1       1       5   .bss        
      u8current_sequence                         174       1       1       3   .common     
 MODULE:                 -- SCI_c.obj --
 - PROCEDURES:
-     SCI_RX                                    E2D4       E      14       1   .text       
-     SCI_TxISR                                 E2E2      20      32       1   .text       
-     SCI_InitTx                                E302       8       8       1   .text       
-     SCI_InitRx                                E30A       A      10       1   .text       
-     SCI_SendMessage                           E314      40      64       1   .text       
-     SCI_TxIsBusy                              E354       4       4       1   .text       
-     SCI_SetRxCallBack                         E358       9       9       1   .text       
-     SCI_getChar                               E361       3       3       3   .text       
+     SCI_RX                                    E2EA       E      14       1   .text       
+     SCI_TxISR                                 E2F8      20      32       1   .text       
+     SCI_InitTx                                E318       8       8       1   .text       
+     SCI_InitRx                                E320       A      10       1   .text       
+     SCI_SendMessage                           E32A      40      64       1   .text       
+     SCI_TxIsBusy                              E36A       4       4       1   .text       
+     SCI_SetRxCallBack                         E36E       9       9       1   .text       
+     SCI_getChar                               E377       3       3       3   .text       
 - VARIABLES:
      _fnRxCallback                              145       2       2       2   .bss        
      _cTxMSG                                    147      1A      26       2   .bss        
@@ -216,24 +221,24 @@ MODULE:                 -- SCI_c.obj --
      bTX_IsBusy                                 175       1       1       4   .common     
 MODULE:                 -- StringUtilis_c.obj --
 - PROCEDURES:
-     StringUtils_Str2Num                       E364      88     136       4   .text       
-     StringUtils_Num2Str                       E3EC      E3     227       2   .text       
-     StringUtils_strcmp                        E4CF      3B      59      10   .text       
+     StringUtils_Str2Num                       E37A      88     136       5   .text       
+     StringUtils_Num2Str                       E402      E3     227       2   .text       
+     StringUtils_strcmp                        E4E5      3B      59      11   .text       
 - VARIABLES:
 MODULE:                 -- TemperatureManager_c.obj --
 - PROCEDURES:
-     TemperatureManager_Init                   E50A       3       3       1   .text       
-     TemperatureManager_isDataReady            E50D       3       3       1   .text       
-     TemperatureManager_Read                   E510       A      10       1   .text       
+     TemperatureManager_Init                   E520       3       3       1   .text       
+     TemperatureManager_isDataReady            E523       3       3       1   .text       
+     TemperatureManager_Read                   E526       A      10       1   .text       
 - VARIABLES:
 MODULE:                 -- TimersManager_c.obj --
 - PROCEDURES:
-     TimersMngr_Init                           E51A      41      65       1   .text       
-     TimersMngr_PeriodicTask                   E55B      D0     208       6   .text       
-     TimersMngr_CreateTimer                    E62B      2D      45       1   .text       
-     TimersMngr_StartTimer                     E658      3D      61       5   .text       
-     TimersMngr_TimerHasElapsed                E695      24      36       3   .text       
-     TimersMngr_UpdateCount                    E6B9       9       9       3   .text       
+     TimersMngr_Init                           E530      41      65       1   .text       
+     TimersMngr_PeriodicTask                   E571      D0     208       6   .text       
+     TimersMngr_CreateTimer                    E641      2D      45       1   .text       
+     TimersMngr_StartTimer                     E66E      3D      61       6   .text       
+     TimersMngr_TimerHasElapsed                E6AB      24      36       3   .text       
+     TimersMngr_UpdateCount                    E6CF       9       9       3   .text       
 - VARIABLES:
      sTimersObjArray                            163       C      12      25   .bss        
      su8Timers                                  16F       1       1       5   .bss        
@@ -241,28 +246,29 @@ MODULE:                 -- TimersManager_c.obj --
      su8ActiveTimers                            172       1       1       2   .bss        
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
-     moveMotor                                 E6C2       F      15       3   .text       
-     tryAgain                                  E6D1       F      15       5   .text       
-     sendDone                                  E6E0      15      21       7   .text       
-     main                                      E6F5     312     786       9   .text       
+     moveMotor                                 E6D8       F      15       3   .text       
+     tryAgain                                  E6E7       F      15       5   .text       
+     sendDone                                  E6F6      15      21       7   .text       
+     main                                      E70B     38E     910      17   .text       
 - VARIABLES:
-     msgTempLim                                E09A       C      12       1   .rodata     
-     optDirCw                                  E0A6       4       4       1   .rodata     
-     optDirCcw                                 E0AA       5       5       1   .rodata     
-     optMotorOff                               E0AF       5       5       1   .rodata     
-     optMotorOn                                E0B4       4       4       1   .rodata     
-     msgMotor                                  E0B8       7       7       1   .rodata     
-     msgRps                                    E0BF       5       5       1   .rodata     
-     msgDir                                    E0C4       5       5       1   .rodata     
-     msgStep                                   E0C9       9       9       1   .rodata     
-     msgStepCcw                                E0D2       A      10       1   .rodata     
-     msgDone                                   E0DC       8       8       1   .rodata     
-     invalidMsg                                E0E4       D      13       1   .rodata     
-     overTempDetect                            E0F1      19      25       1   .rodata     
+     k_msgTempLim                              E09A       C      12       1   .rodata     
+     k_optDirCw                                E0A6       4       4       1   .rodata     
+     k_optDirCcw                               E0AA       5       5       1   .rodata     
+     k_optMotorOff                             E0AF       5       5       1   .rodata     
+     k_optMotorOn                              E0B4       4       4       1   .rodata     
+     k_msgMotor                                E0B8       7       7       1   .rodata     
+     k_msgRps                                  E0BF       5       5       1   .rodata     
+     k_msgDir                                  E0C4       5       5       1   .rodata     
+     k_msgStep                                 E0C9       9       9       1   .rodata     
+     k_msgStepCcw                              E0D2       A      10       1   .rodata     
+     k_msgDone                                 E0DC       8       8       1   .rodata     
+     k_invalidMsg                              E0E4       D      13       1   .rodata     
+     k_overTempDetect                          E0F1      19      25       1   .rodata     
+     k_msgDistance                             E10A       6       6       1   .rodata     
      tempMsg                                    100       A      10       2   .data       
      tempTimerID                                176       1       1       3   .common     
-     variableStepperTime                        177       2       2       5   .common     
-     currMsg                                    179      1A      26      16   .common     
+     variableStepperTime                        177       2       2       6   .common     
+     currMsg                                    179      1A      26      18   .common     
      motorState                                 193       1       1       5   .common     
      temperatureLimit                           194       2       2       4   .common     
 MODULE:                 -- start08_c.obj --
@@ -317,7 +323,7 @@ MODULE:                 -- mc9s08qg8_c.obj --
      _TPMSC                                      40       1       1       0   .abs_section_40
      _TPMC0SC                                    45       1       1       0   .abs_section_45
      _TPMC1SC                                    48       1       1       0   .abs_section_48
-     _SRS                                      1800       1       1       6   .abs_section_1800
+     _SRS                                      1800       1       1       7   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       0   .abs_section_1802
      _SOPT2                                    1803       1       1       0   .abs_section_1803
@@ -353,31 +359,31 @@ MODULE:                 -- mc9s08qg8_c.obj --
      _DBGF                                     1814       2       2       0   .abs_section_1814
 MODULE:                 -- rtshc08.o (ansiis.lib) --
 - PROCEDURES:
-     _PUSH_ARGS_L                              EA07      20      32       3   .text       
-     _ENTER_BINARY_L                           EA27      16      22       2   .text       
-     _ENTER_BINARY_L_RC                        EA3D      19      25       3   .text       
-     _ENTER_BINARY_L_LC                        EA56      1A      26       1   .text       
-     _IDIVMOD                                  EA70      69     105       2   .text       
-     _k_is_k_plus_j_l                          EAD9      1E      30       2   .text       
-     _k_is_k_plus_j_i                          EAF7      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      EB09      1F      31       2   .text       
-     _LMUL_k_is_k_mul_j                        EB28      81     129       1   .text       
-     _LDIVMOD                                  EBA9      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       EC4D      17      23       1   .text       
-     _LCMP_k_rel_j                             EC64      1F      31       2   .text       
-     _IMUL_STAR08                              EC83      27      39       1   .text       
-     _IDIVU_STAR08                             ECAA       D      13       3   .text       
-     _IMODU_STAR08                             ECB7      10      16       1   .text       
-     _IMODU_8                                  ECC7      12      18       1   .text       
-     _ICMP                                     ECD9      16      22       1   .text       
-     _LSUB                                     ECEF       6       6       1   .text       
-     _LSUB_RC                                  ECF5       6       6       1   .text       
-     _LMUL_RC                                  ECFB       6       6       3   .text       
-     _LDIVU_LC                                 ED01       6       6       1   .text       
-     _LCMP                                     ED07       6       6       1   .text       
-     _LCMP_RC                                  ED0D       6       6       2   .text       
-     _COPY                                     ED13      30      48       1   .text       
-     _POP32                                    ED43      1A      26       4   .text       
+     _PUSH_ARGS_L                              EA99      20      32       3   .text       
+     _ENTER_BINARY_L                           EAB9      16      22       2   .text       
+     _ENTER_BINARY_L_RC                        EACF      19      25       3   .text       
+     _ENTER_BINARY_L_LC                        EAE8      1A      26       1   .text       
+     _IDIVMOD                                  EB02      69     105       2   .text       
+     _k_is_k_plus_j_l                          EB6B      1E      30       2   .text       
+     _k_is_k_plus_j_i                          EB89      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      EB9B      1F      31       2   .text       
+     _LMUL_k_is_k_mul_j                        EBBA      81     129       1   .text       
+     _LDIVMOD                                  EC3B      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       ECDF      17      23       1   .text       
+     _LCMP_k_rel_j                             ECF6      1F      31       2   .text       
+     _IMUL_STAR08                              ED15      27      39       2   .text       
+     _IDIVU_STAR08                             ED3C       D      13       3   .text       
+     _IMODU_STAR08                             ED49      10      16       1   .text       
+     _IMODU_8                                  ED59      12      18       1   .text       
+     _ICMP                                     ED6B      16      22       1   .text       
+     _LSUB                                     ED81       6       6       1   .text       
+     _LSUB_RC                                  ED87       6       6       1   .text       
+     _LMUL_RC                                  ED8D       6       6       4   .text       
+     _LDIVU_LC                                 ED93       6       6       1   .text       
+     _LCMP                                     ED99       6       6       1   .text       
+     _LCMP_RC                                  ED9F       6       6       1   .text       
+     _COPY                                     EDA5      30      48       1   .text       
+     _POP32                                    EDD5      1A      26       5   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -387,6 +393,7 @@ MODULE STATISTIC
   ADCManager_c.obj                             0     17      0
   DelayManager_c.obj                           0     85      0
   DirectionManager_c.obj                       1     14      0
+  DistanceManager_c.obj                        0     16      0
   MTIM_c.obj                                   2     32      2
   MessageManager_c.obj                        56    251      0
   MotorManager_c.obj                           2     59      8
@@ -394,7 +401,7 @@ MODULE STATISTIC
   StringUtilis_c.obj                           0    422      0
   TemperatureManager_c.obj                     0     16      0
   TimersManager_c.obj                         16    424      0
-  main_c.obj                                  42    837    112
+  main_c.obj                                  42    961    118
   start08_c.obj                                0    132      0
   mc9s08qg8_c.obj                             85      0      0
   rtshc08.o (ansiis.lib)                       0    854      0
@@ -406,14 +413,15 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 SECTION: ".text"
   ADC_Init ADC_isDataReady ADC_Read DelayManager_Init DelayManager_getTimeUs 
   DirectionManager_Init DirectionManager_setDirection 
-  DirectionManager_getDirection MTIM_Init MTIM_RegisterIsrCallback MTIM_isr 
-  MsgManager_Init MsgManager_SendMessage MsgManager_TxisBusy 
-  MsgManager_GetMessageReceived MsgManager_isNewMessageReady 
-  MsgManager_clearMsg MsgManager_ReceiveMessage MotorManager_Init 
-  MotorManager_RotateCounterClockwise MotorManager_RotateClockwise SCI_RX 
-  SCI_TxISR SCI_InitTx SCI_InitRx SCI_SendMessage SCI_TxIsBusy 
-  SCI_SetRxCallBack SCI_getChar StringUtils_Str2Num StringUtils_Num2Str 
-  StringUtils_strcmp TemperatureManager_Init TemperatureManager_isDataReady 
+  DirectionManager_getDirection DistanceManager_Dist2Degrees MTIM_Init 
+  MTIM_RegisterIsrCallback MTIM_isr MsgManager_Init MsgManager_SendMessage 
+  MsgManager_TxisBusy MsgManager_GetMessageReceived 
+  MsgManager_isNewMessageReady MsgManager_clearMsg MsgManager_ReceiveMessage 
+  MotorManager_Init MotorManager_RotateCounterClockwise 
+  MotorManager_RotateClockwise SCI_RX SCI_TxISR SCI_InitTx SCI_InitRx 
+  SCI_SendMessage SCI_TxIsBusy SCI_SetRxCallBack SCI_getChar 
+  StringUtils_Str2Num StringUtils_Num2Str StringUtils_strcmp 
+  TemperatureManager_Init TemperatureManager_isDataReady 
   TemperatureManager_Read TimersMngr_Init TimersMngr_PeriodicTask 
   TimersMngr_CreateTimer TimersMngr_StartTimer TimersMngr_TimerHasElapsed 
   TimersMngr_UpdateCount moveMotor tryAgain sendDone main _PUSH_ARGS_L 
@@ -432,8 +440,9 @@ SECTION: ".bss"
 SECTION: ".init"
   loadByte Init _Startup 
 SECTION: ".rodata"
-  half_step_sequence msgTempLim optDirCw optDirCcw optMotorOff optMotorOn 
-  msgMotor msgRps msgDir msgStep msgStepCcw msgDone invalidMsg overTempDetect 
+  half_step_sequence k_msgTempLim k_optDirCw k_optDirCcw k_optMotorOff 
+  k_optMotorOn k_msgMotor k_msgRps k_msgDir k_msgStep k_msgStepCcw k_msgDone 
+  k_invalidMsg k_overTempDetect k_msgDistance 
 SECTION: ".common"
   direction u8current_sequence bTX_IsBusy tempTimerID variableStepperTime 
   currMsg motorState temperatureLimit 
@@ -664,11 +673,11 @@ OBJECT LIST SORTED BY ADDRESS
      u8current_sequence                         174       1       1       3   .common     
      bTX_IsBusy                                 175       1       1       4   .common     
      tempTimerID                                176       1       1       3   .common     
-     variableStepperTime                        177       2       2       5   .common     
-     currMsg                                    179      1A      26      16   .common     
+     variableStepperTime                        177       2       2       6   .common     
+     currMsg                                    179      1A      26      18   .common     
      motorState                                 193       1       1       5   .common     
      temperatureLimit                           194       2       2       4   .common     
-     _SRS                                      1800       1       1       6   .abs_section_1800
+     _SRS                                      1800       1       1       7   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       0   .abs_section_1802
      _SOPT2                                    1803       1       1       0   .abs_section_1803
@@ -699,89 +708,91 @@ OBJECT LIST SORTED BY ADDRESS
      Init                                      E00E      6D     109       1   .init       
      _Startup                                  E07B       9       9       0   .init       
      half_step_sequence                        E092       8       8       3   .rodata     
-     msgTempLim                                E09A       C      12       1   .rodata     
-     optDirCw                                  E0A6       4       4       1   .rodata     
-     optDirCcw                                 E0AA       5       5       1   .rodata     
-     optMotorOff                               E0AF       5       5       1   .rodata     
-     optMotorOn                                E0B4       4       4       1   .rodata     
-     msgMotor                                  E0B8       7       7       1   .rodata     
-     msgRps                                    E0BF       5       5       1   .rodata     
-     msgDir                                    E0C4       5       5       1   .rodata     
-     msgStep                                   E0C9       9       9       1   .rodata     
-     msgStepCcw                                E0D2       A      10       1   .rodata     
-     msgDone                                   E0DC       8       8       1   .rodata     
-     invalidMsg                                E0E4       D      13       1   .rodata     
-     overTempDetect                            E0F1      19      25       1   .rodata     
-     ADC_Init                                  E10A       6       6       1   .text       
-     ADC_isDataReady                           E110       8       8       1   .text       
-     ADC_Read                                  E118       3       3       1   .text       
-     DelayManager_Init                         E11B      1D      29       2   .text       
-     DelayManager_getTimeUs                    E138      38      56       1   .text       
-     DirectionManager_Init                     E170       6       6       1   .text       
-     DirectionManager_setDirection             E176       4       4       4   .text       
-     DirectionManager_getDirection             E17A       4       4       3   .text       
-     MTIM_Init                                 E17E       A      10       1   .text       
-     MTIM_RegisterIsrCallback                  E188       9       9       1   .text       
-     MTIM_isr                                  E191       D      13       1   .text       
-     MsgManager_Init                           E19E      1A      26       1   .text       
-     MsgManager_SendMessage                    E1B8       3       3       3   .text       
-     MsgManager_TxisBusy                       E1BB       3       3       3   .text       
-     MsgManager_GetMessageReceived             E1BE      71     113       1   .text       
-     MsgManager_isNewMessageReady              E22F       B      11       1   .text       
-     MsgManager_clearMsg                       E23A      18      24       1   .text       
-     MsgManager_ReceiveMessage                 E252      47      71       1   .text       
-     MotorManager_Init                         E299      13      19       1   .text       
-     MotorManager_RotateCounterClockwise       E2AC      14      20       1   .text       
-     MotorManager_RotateClockwise              E2C0      14      20       1   .text       
-     SCI_RX                                    E2D4       E      14       1   .text       
-     SCI_TxISR                                 E2E2      20      32       1   .text       
-     SCI_InitTx                                E302       8       8       1   .text       
-     SCI_InitRx                                E30A       A      10       1   .text       
-     SCI_SendMessage                           E314      40      64       1   .text       
-     SCI_TxIsBusy                              E354       4       4       1   .text       
-     SCI_SetRxCallBack                         E358       9       9       1   .text       
-     SCI_getChar                               E361       3       3       3   .text       
-     StringUtils_Str2Num                       E364      88     136       4   .text       
-     StringUtils_Num2Str                       E3EC      E3     227       2   .text       
-     StringUtils_strcmp                        E4CF      3B      59      10   .text       
-     TemperatureManager_Init                   E50A       3       3       1   .text       
-     TemperatureManager_isDataReady            E50D       3       3       1   .text       
-     TemperatureManager_Read                   E510       A      10       1   .text       
-     TimersMngr_Init                           E51A      41      65       1   .text       
-     TimersMngr_PeriodicTask                   E55B      D0     208       6   .text       
-     TimersMngr_CreateTimer                    E62B      2D      45       1   .text       
-     TimersMngr_StartTimer                     E658      3D      61       5   .text       
-     TimersMngr_TimerHasElapsed                E695      24      36       3   .text       
-     TimersMngr_UpdateCount                    E6B9       9       9       3   .text       
-     moveMotor                                 E6C2       F      15       3   .text       
-     tryAgain                                  E6D1       F      15       5   .text       
-     sendDone                                  E6E0      15      21       7   .text       
-     main                                      E6F5     312     786       9   .text       
-     _PUSH_ARGS_L                              EA07      20      32       3   .text       
-     _ENTER_BINARY_L                           EA27      16      22       2   .text       
-     _ENTER_BINARY_L_RC                        EA3D      19      25       3   .text       
-     _ENTER_BINARY_L_LC                        EA56      1A      26       1   .text       
-     _IDIVMOD                                  EA70      69     105       2   .text       
-     _k_is_k_plus_j_l                          EAD9      1E      30       2   .text       
-     _k_is_k_plus_j_i                          EAF7      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      EB09      1F      31       2   .text       
-     _LMUL_k_is_k_mul_j                        EB28      81     129       1   .text       
-     _LDIVMOD                                  EBA9      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       EC4D      17      23       1   .text       
-     _LCMP_k_rel_j                             EC64      1F      31       2   .text       
-     _IMUL_STAR08                              EC83      27      39       1   .text       
-     _IDIVU_STAR08                             ECAA       D      13       3   .text       
-     _IMODU_STAR08                             ECB7      10      16       1   .text       
-     _IMODU_8                                  ECC7      12      18       1   .text       
-     _ICMP                                     ECD9      16      22       1   .text       
-     _LSUB                                     ECEF       6       6       1   .text       
-     _LSUB_RC                                  ECF5       6       6       1   .text       
-     _LMUL_RC                                  ECFB       6       6       3   .text       
-     _LDIVU_LC                                 ED01       6       6       1   .text       
-     _LCMP                                     ED07       6       6       1   .text       
-     _LCMP_RC                                  ED0D       6       6       2   .text       
-     _COPY                                     ED13      30      48       1   .text       
-     _POP32                                    ED43      1A      26       4   .text       
+     k_msgTempLim                              E09A       C      12       1   .rodata     
+     k_optDirCw                                E0A6       4       4       1   .rodata     
+     k_optDirCcw                               E0AA       5       5       1   .rodata     
+     k_optMotorOff                             E0AF       5       5       1   .rodata     
+     k_optMotorOn                              E0B4       4       4       1   .rodata     
+     k_msgMotor                                E0B8       7       7       1   .rodata     
+     k_msgRps                                  E0BF       5       5       1   .rodata     
+     k_msgDir                                  E0C4       5       5       1   .rodata     
+     k_msgStep                                 E0C9       9       9       1   .rodata     
+     k_msgStepCcw                              E0D2       A      10       1   .rodata     
+     k_msgDone                                 E0DC       8       8       1   .rodata     
+     k_invalidMsg                              E0E4       D      13       1   .rodata     
+     k_overTempDetect                          E0F1      19      25       1   .rodata     
+     k_msgDistance                             E10A       6       6       1   .rodata     
+     ADC_Init                                  E110       6       6       1   .text       
+     ADC_isDataReady                           E116       8       8       1   .text       
+     ADC_Read                                  E11E       3       3       1   .text       
+     DelayManager_Init                         E121      1D      29       2   .text       
+     DelayManager_getTimeUs                    E13E      38      56       1   .text       
+     DirectionManager_Init                     E176       6       6       1   .text       
+     DirectionManager_setDirection             E17C       4       4       4   .text       
+     DirectionManager_getDirection             E180       4       4       4   .text       
+     DistanceManager_Dist2Degrees              E184      10      16       1   .text       
+     MTIM_Init                                 E194       A      10       1   .text       
+     MTIM_RegisterIsrCallback                  E19E       9       9       1   .text       
+     MTIM_isr                                  E1A7       D      13       1   .text       
+     MsgManager_Init                           E1B4      1A      26       1   .text       
+     MsgManager_SendMessage                    E1CE       3       3       3   .text       
+     MsgManager_TxisBusy                       E1D1       3       3       3   .text       
+     MsgManager_GetMessageReceived             E1D4      71     113       1   .text       
+     MsgManager_isNewMessageReady              E245       B      11       1   .text       
+     MsgManager_clearMsg                       E250      18      24       1   .text       
+     MsgManager_ReceiveMessage                 E268      47      71       1   .text       
+     MotorManager_Init                         E2AF      13      19       1   .text       
+     MotorManager_RotateCounterClockwise       E2C2      14      20       1   .text       
+     MotorManager_RotateClockwise              E2D6      14      20       1   .text       
+     SCI_RX                                    E2EA       E      14       1   .text       
+     SCI_TxISR                                 E2F8      20      32       1   .text       
+     SCI_InitTx                                E318       8       8       1   .text       
+     SCI_InitRx                                E320       A      10       1   .text       
+     SCI_SendMessage                           E32A      40      64       1   .text       
+     SCI_TxIsBusy                              E36A       4       4       1   .text       
+     SCI_SetRxCallBack                         E36E       9       9       1   .text       
+     SCI_getChar                               E377       3       3       3   .text       
+     StringUtils_Str2Num                       E37A      88     136       5   .text       
+     StringUtils_Num2Str                       E402      E3     227       2   .text       
+     StringUtils_strcmp                        E4E5      3B      59      11   .text       
+     TemperatureManager_Init                   E520       3       3       1   .text       
+     TemperatureManager_isDataReady            E523       3       3       1   .text       
+     TemperatureManager_Read                   E526       A      10       1   .text       
+     TimersMngr_Init                           E530      41      65       1   .text       
+     TimersMngr_PeriodicTask                   E571      D0     208       6   .text       
+     TimersMngr_CreateTimer                    E641      2D      45       1   .text       
+     TimersMngr_StartTimer                     E66E      3D      61       6   .text       
+     TimersMngr_TimerHasElapsed                E6AB      24      36       3   .text       
+     TimersMngr_UpdateCount                    E6CF       9       9       3   .text       
+     moveMotor                                 E6D8       F      15       3   .text       
+     tryAgain                                  E6E7       F      15       5   .text       
+     sendDone                                  E6F6      15      21       7   .text       
+     main                                      E70B     38E     910      17   .text       
+     _PUSH_ARGS_L                              EA99      20      32       3   .text       
+     _ENTER_BINARY_L                           EAB9      16      22       2   .text       
+     _ENTER_BINARY_L_RC                        EACF      19      25       3   .text       
+     _ENTER_BINARY_L_LC                        EAE8      1A      26       1   .text       
+     _IDIVMOD                                  EB02      69     105       2   .text       
+     _k_is_k_plus_j_l                          EB6B      1E      30       2   .text       
+     _k_is_k_plus_j_i                          EB89      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      EB9B      1F      31       2   .text       
+     _LMUL_k_is_k_mul_j                        EBBA      81     129       1   .text       
+     _LDIVMOD                                  EC3B      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       ECDF      17      23       1   .text       
+     _LCMP_k_rel_j                             ECF6      1F      31       2   .text       
+     _IMUL_STAR08                              ED15      27      39       2   .text       
+     _IDIVU_STAR08                             ED3C       D      13       3   .text       
+     _IMODU_STAR08                             ED49      10      16       1   .text       
+     _IMODU_8                                  ED59      12      18       1   .text       
+     _ICMP                                     ED6B      16      22       1   .text       
+     _LSUB                                     ED81       6       6       1   .text       
+     _LSUB_RC                                  ED87       6       6       1   .text       
+     _LMUL_RC                                  ED8D       6       6       4   .text       
+     _LDIVU_LC                                 ED93       6       6       1   .text       
+     _LCMP                                     ED99       6       6       1   .text       
+     _LCMP_RC                                  ED9F       6       6       1   .text       
+     _COPY                                     EDA5      30      48       1   .text       
+     _POP32                                    EDD5      1A      26       5   .text       
      _Vector_16                                FFDE       2       2       0   .abs_section_ffde
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
      _Vector_12                                FFE6       2       2       0   .abs_section_ffe6
@@ -810,28 +821,29 @@ rtshc08.o (ansiis.lib):
   _Search_Table_16_Offset _Search_Table_8_Addr _Search_Table_8_Offset _PUSH_CC 
   _POP_CC _CONV_FAR_TO_NEAR _CONV_FAR_TO_LINEAR _CONV_LINEAR_TO_FAR 
 NOT USED VARIABLES
+DistanceManager_c.obj:
+  distanceConstant 
 StringUtilis_c.obj:
   size 
 main_c.obj:
-  msgDistanceSize clockWise counterClockWise msgTempLimSize optTempLimSize 
-  numAfterDec optRpsSize optDegreeSize optDirCwSize optDirCcwSize 
-  optMotorOnSize optMotorOffSize msgMotorSize msgRpsSize msgDirSize msgStepSize 
-  msgStepSizeCcw msgProfSaveSize msgProfUseSize msgDoneSize invalidMsgSize 
-  msgProfSave msgProfUse overTempDetectsize msgDistance optDistanceSize 
-  twoNumAfterDec 
+  k_clockWise k_counterClockWise k_msgDistanceSize k_msgTempLimSize 
+  k_optTempLimSize k_numAfterDec k_optRpsSize k_optDegreeSize k_optDirCwSize 
+  k_optDirCcwSize k_optMotorOnSize k_optMotorOffSize k_msgMotorSize 
+  k_msgRpsSize k_msgDirSize k_msgStepSize k_msgStepSizeCcw k_msgDoneSize 
+  k_invalidMsgSize k_overTempDetectsize k_optDistanceSize k_twoNumAfterDec 
 rtshc08.o (ansiis.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xED5D ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xEDEF ---- SIZE       4 ---
 Filling bytes inserted
  00090100
-------- ROM-ADDRESS: 0xED61 ---- RAM-ADDRESS: 0x100 ---- SIZE       9 ---
+------- ROM-ADDRESS: 0xEDF3 ---- RAM-ADDRESS: 0x100 ---- SIZE       9 ---
 Name of initialized Object : tempMsg
  0A2020202E 20430A0D
-------- ROM-ADDRESS: 0xED6A ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xEDFC ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -848,6 +860,7 @@ DelayManager_getTimeUs    USES _LMUL_RC _LDIVU_LC
 DirectionManager_Init     USES direction 
 DirectionManager_setDirection USES direction 
 DirectionManager_getDirection USES direction 
+DistanceManager_Dist2Degrees USES _IMUL_STAR08 
 MTIM_Init                 USES _MTIMSC _MTIMCLK _MTIMMOD 
 MTIM_RegisterIsrCallback  USES sMtimIsrCallback 
 MTIM_isr                  USES _MTIMSC sMtimIsrCallback 
@@ -894,9 +907,9 @@ TimersMngr_TimerHasElapsed USES sTimersObjArray
 TimersMngr_UpdateCount    USES su16ElapsedTime 
 moveMotor                 USES MotorManager_RotateClockwise 
                                 MotorManager_RotateCounterClockwise 
-tryAgain                  USES MsgManager_TxisBusy invalidMsg 
+tryAgain                  USES MsgManager_TxisBusy k_invalidMsg 
                                 MsgManager_SendMessage 
-sendDone                  USES MsgManager_TxisBusy msgDone 
+sendDone                  USES MsgManager_TxisBusy k_msgDone 
                                 MsgManager_SendMessage currMsg MsgManager_clearMsg 
 main                      USES TimersMngr_Init DelayManager_Init tempTimerID 
                                 DirectionManager_Init MotorManager_Init TemperatureManager_Init 
@@ -904,14 +917,14 @@ main                      USES TimersMngr_Init DelayManager_Init tempTimerID
                                 temperatureLimit TimersMngr_PeriodicTask TimersMngr_UpdateCount 
                                 TemperatureManager_isDataReady TemperatureManager_Read 
                                 TimersMngr_TimerHasElapsed DirectionManager_getDirection moveMotor main 
-                                MsgManager_isNewMessageReady currMsg MsgManager_GetMessageReceived msgMotor 
-                                StringUtils_strcmp optMotorOn sendDone optMotorOff tryAgain 
-                                msgTempLim StringUtils_Str2Num msgRps 
-                                DelayManager_getTimeUs msgDir optDirCw DirectionManager_setDirection 
-                                optDirCcw msgStep _LMUL_RC _POP32 TimersMngr_StartTimer 
-                                _SRS _LCMP_RC msgStepCcw MsgManager_TxisBusy 
-                                overTempDetect tempMsg StringUtils_Num2Str 
-                                MsgManager_SendMessage _LSUB_RC 
+                                MsgManager_isNewMessageReady currMsg MsgManager_GetMessageReceived 
+                                k_msgMotor StringUtils_strcmp k_optMotorOn sendDone 
+                                k_optMotorOff tryAgain k_msgTempLim StringUtils_Str2Num 
+                                k_msgRps DelayManager_getTimeUs k_msgDir k_optDirCw 
+                                DirectionManager_setDirection k_optDirCcw k_msgStep _LMUL_RC _POP32 
+                                TimersMngr_StartTimer _SRS k_msgStepCcw k_msgDistance 
+                                DistanceManager_Dist2Degrees MsgManager_TxisBusy k_overTempDetect tempMsg 
+                                StringUtils_Num2Str MsgManager_SendMessage _LSUB_RC _LCMP_RC 
 _ENTER_BINARY_L           USES _PUSH_ARGS_L 
 _ENTER_BINARY_L_RC        USES _PUSH_ARGS_L 
 _ENTER_BINARY_L_LC        USES _PUSH_ARGS_L 
@@ -1073,11 +1086,9 @@ DEPENDENCY TREE
  |  |  
  |  +- TimersMngr_StartTimer (see above)
  |  |  
- |  +- _LCMP_RC            
+ |  +- DistanceManager_Dist2Degrees
  |  |  | 
- |  |  +- _ENTER_BINARY_L_RC   (see above)
- |  |  |  
- |  |  +- _LCMP_k_rel_j        (see above)
+ |  |  +- _IMUL_STAR08         (see above)
  |  |     
  |  +- MsgManager_TxisBusy  (see above)
  |  |  
@@ -1096,10 +1107,16 @@ DEPENDENCY TREE
  |  +- MsgManager_SendMessage (see above)
  |  |  
  |  +- _LSUB_RC            
+ |  |  | 
+ |  |  +- _ENTER_BINARY_L_RC   (see above)
+ |  |  |  
+ |  |  +- _LSUB_k_is_k_minus_j (see above)
+ |  |     
+ |  +- _LCMP_RC            
  |     | 
  |     +- _ENTER_BINARY_L_RC   (see above)
  |     |  
- |     +- _LSUB_k_is_k_minus_j (see above)
+ |     +- _LCMP_k_rel_j        (see above)
  |        
  +- _Startup            
     | 
@@ -1127,6 +1144,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 3444
+Number of blocks to be downloaded: 8
+Total size of all blocks to be downloaded: 3590
 
