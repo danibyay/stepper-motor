@@ -244,7 +244,7 @@ void main(void)
 	    	   }
 	    	}
 	    	// ADVANCE DEGREES ACCORDING TO DISTANCE (motor moves a tire of 30 cm of perimeter) //////////////////////////
-	    	else if(StringUtils_strcmp(currMsg, k_msgDistance, k_msgDistanceSize))
+	    	/*else if(StringUtils_strcmp(currMsg, k_msgDistance, k_msgDistanceSize))
 	    	{
 	   	       u16 tempDist; 
 	   	       if(StringUtils_Str2Num(&currMsg[k_msgDistanceSize], k_optDistanceSize, k_twoNumAfterDec, &tempDist))
@@ -276,7 +276,7 @@ void main(void)
  		       {
 	    	      tryAgain();
 	           }	    		
-	    	}
+	    	}*/
 	        else
 	    	{
 	   		   tryAgain();

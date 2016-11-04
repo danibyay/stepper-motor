@@ -66,20 +66,20 @@ bool StringUtils_Str2Num(u8 str[], u8 strSize, u8 decimal, u16* num)
 
 void StringUtils_Num2Str(u16 num, u8 string[])
 {
-	u16 localnum = num;
+	u16 localnum = num; 
 	string[3]=0x2E;
 	if(localnum<10)
 	{
 		string[0]=0x30;
 		string[1]=0x30;
 		string[2]=0x30;
-		string[4]=localnum;
+		string[4]= (u8) localnum; //si falla, quitar el cast
 	}
 	else if(localnum<100)
 	{
 		string[4]=localnum%10+0x30;
 		localnum/=10;
-		string[2]=localnum;
+		string[2]=(u8) localnum; //si falla, quitar el cast
 		string[1]=0x30;
 		string[0]=0x30;
 	}
