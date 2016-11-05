@@ -2,7 +2,8 @@
  * Constants.h
  *
  *  Created on: Nov 3, 2016
- *      Author: Danibw
+ *      Author: Daniela Becerra, Jesus Martin.
+ *      Brief: File where the applications constants are, mostly strings of characters and their respective sizes.
  */
 
 #ifndef CONSTANTS_H_

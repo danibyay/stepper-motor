@@ -33,14 +33,19 @@ void ADC_Init(void);
 
 /*!*-----------------------------------------------------------------------------------------------
 * \name     ADC_Read
-* \brief    Reads ADCRL register when COCO FLAG is on
+* \brief    Reads ADCRL 
 * \param    void
-* \return   void
+* \return   u8 returns the last read Data of ADC in ADC register low
 -------------------------------------------------------------------------------------------------*/
-bool ADC_isDataReady(void);
-
 u8 ADC_Read(void);
 
+/*!*-----------------------------------------------------------------------------------------------
+* \name     ADC_Read
+* \brief    Checks if the last conversion of the ADC is complete (COCO)
+* \param    void
+* \return   bool, true if data is ready, false, otherwise
+-------------------------------------------------------------------------------------------------*/
+bool ADC_isDataReady(void);
 
 
 #endif /* ADC */

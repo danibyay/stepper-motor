@@ -28,14 +28,6 @@
 #define MAX_TEMP_DEFAULT 	    400 
 #define MAX_MSG_SIZE            26
 
-
-u8 tempTimerID;
-u16 variableStepperTime;
-u8 currMsg[MAX_MSG_SIZE];
-bool motorState;
-u16 temperatureLimit;
-u8 tempMsg[] = "\n   . C\n\r";
-
 void moveMotor(bool dirCW)
 {
    if(dirCW)
@@ -56,12 +48,12 @@ void tryAgain(void)
    }
 }
 
-void sendDone(void)
+void sendDone(u8 msg[])
 {	    
    if (!MsgManager_TxisBusy())
    {
       MsgManager_SendMessage(k_msgDone, k_msgDoneSize);
-      MsgManager_clearMsg(currMsg);
+      MsgManager_clearMsg(msg);
    }	    
 }
 
@@ -73,6 +65,12 @@ void main(void)
 	
    u16 systemTemp;
    u8 motorTimerID;
+   u8 tempTimerID;
+   u16 variableStepperTime;
+   bool motorState;
+   u16 temperatureLimit;
+   u8 tempMsg[] = "\n   . C\n\r";
+   u8 currMsg[MAX_MSG_SIZE];
    EnableInterrupts;
 	
    TimersMngr_Init(); 
@@ -119,12 +117,12 @@ void main(void)
 	        if(StringUtils_strcmp(&currMsg[k_msgMotorSize], k_optMotorOn, k_optMotorOnSize))
 	    	{
 	    	   motorState = ON;
-	    	   sendDone();
+	    	   sendDone(currMsg);
 	    	}
 	    	else if(StringUtils_strcmp(&currMsg[k_msgMotorSize], k_optMotorOff, k_optMotorOffSize))
 	    	{
 	    	   motorState = OFF;
-	       	   sendDone();
+	       	   sendDone(currMsg);
 	    	}
 	    	else
 	    	{
@@ -138,7 +136,7 @@ void main(void)
 	        if(StringUtils_Str2Num(&currMsg[k_msgTempLimSize], k_optTempLimSize, k_numAfterDec, &tempTempLim))
 	    	{
 	    	   temperatureLimit=tempTempLim;
-	    	   sendDone();
+	    	   sendDone(currMsg);
 	    	}
 	    	else
 	    	{
@@ -152,7 +150,7 @@ void main(void)
 		    if(StringUtils_Str2Num(&currMsg[k_msgRpsSize], k_optRpsSize, 1, &tempRps))
 		    {
 			   variableStepperTime = DelayManager_getTimeUs(tempRps); 
-			   sendDone();
+			   sendDone(currMsg);
 		    }
 		    else
 		    {
@@ -165,12 +163,12 @@ void main(void)
 	        if(StringUtils_strcmp(&currMsg[k_msgDirSize], k_optDirCw, k_optDirCwSize))
 	    	{
 	    	   DirectionManager_setDirection(k_clockWise); 
-	    	   sendDone();
+	    	   sendDone(currMsg);
 	    	}
 	    	else if(StringUtils_strcmp(&currMsg[k_msgDirSize], k_optDirCcw, k_optDirCcwSize))
 	    	{
 	    	   DirectionManager_setDirection(k_counterClockWise);
-	    	   sendDone();
+	    	   sendDone(currMsg);
 	    	}
 	    	else
 	    	{
@@ -203,8 +201,7 @@ void main(void)
 		    			degrees =degrees-DEGREES_HALF_STEP;
 		    		 }  
 	    		  }  
-		    	  //MsgManager_clearMsg(&degrees); // alomejor no es necesario
-		    	  sendDone();
+		    	  sendDone(currMsg);
 	    	   }      
 	    	   else
 	    	   {
@@ -235,8 +232,7 @@ void main(void)
 	    				degrees =degrees-DEGREES_HALF_STEP;
 	    			 }		    					
 	    		  }
-	    		  //MsgManager_clearMsg(&degrees); // alomejor no es necesario
-	    		  sendDone();
+	    		  sendDone(currMsg);
 	    	   }   
 	    	   else
 	    	   {
@@ -270,7 +266,7 @@ void main(void)
 	           		 }	
 	    	      }
 	    		  //MsgManager_clearMsg(&degrees); // alomejor no es necesario
-		    	  sendDone();		    			    				    			
+		    	  sendDone(currMsg);		    			    				    			
 	    	   }  
 	    	   else
  		       {
