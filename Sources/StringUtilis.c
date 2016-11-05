@@ -2,29 +2,18 @@
  * StringUtilis.c
  *
  *  Created on: Oct 30, 2016
- *      Author: Jesus
+ *      Author: Jesus Martin, Daniela Becerra
  */
 #include "types.h"
 
 #define DECIMAL_TO_ASCII 0x30
-#define FALSE 0
-#define TRUE 1
 
-u8 size;
-// StringUtils_Str2Num(&msg[kMsgRpsSize], 5, 1, &tempNum)
-
-void StringUtils_setSize(u8 sizeParameter)
-{
-	size=sizeParameter;
-}
-
-                   //  "999"        3            0
 bool StringUtils_Str2Num(u8 str[], u8 strSize, u8 decimal, u16* num)
 {
 	u8 i = 0;
 	u8 tempNum;
 	u16 accumulatedValue;
-	bool validString = TRUE; 
+	bool validString = M_TRUE; 
 	
 	
 	accumulatedValue = 0;
@@ -43,7 +32,7 @@ bool StringUtils_Str2Num(u8 str[], u8 strSize, u8 decimal, u16* num)
 		tempNum = str[i] - DECIMAL_TO_ASCII;
 		if (tempNum < 0 || tempNum >9)
 		{
-			return FALSE;
+			return M_FALSE;
 		}
 		else
 		{

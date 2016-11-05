@@ -14,10 +14,10 @@ void MsgManager_Init()
 	SCI_InitRx();
 	SCI_SetRxCallBack(&MsgManager_ReceiveMessage);
 	
-	RxIndex = 0;
-	Buffer_Select= 0;
-	MsgManagerBuffer1_isFull = 0;
-	MsgManagerBuffer2_isFull = 0;
+	RxIndex = ZERO;
+	Buffer_Select= ZERO;
+	MsgManagerBuffer1_isFull = M_FALSE;
+	MsgManagerBuffer2_isFull = M_FALSE;
 	
 }
 

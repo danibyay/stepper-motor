@@ -36,7 +36,7 @@ _startupData is allocated at 0xE084 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x100     108
-  _Copy    *toCopyDownBeg 0xEE19
+  _Copy    *toCopyDownBeg 0xEE17
 } _startupData;
 
 *********************************************************************************************
@@ -46,8 +46,8 @@ Section Name                    Size  Type     From       To       Segment
 .init                            132     R     0xE000     0xE083   ROM
 .startData                        14     R     0xE084     0xE091   ROM
 .rodata                          126     R     0xE092     0xE10F   ROM
-.text                           3337     R     0xE110     0xEE18   ROM
-.copy                              2     R     0xEE19     0xEE1A   ROM
+.text                           3335     R     0xE110     0xEE16   ROM
+.copy                              2     R     0xEE17     0xEE18   ROM
 .abs_section_ffe6                  2     R     0xFFE6     0xFFE7   .absSeg0
 .abs_section_ffe0                  2     R     0xFFE0     0xFFE1   .absSeg1
 .abs_section_ffde                  2     R     0xFFDE     0xFFDF   .absSeg2
@@ -131,7 +131,7 @@ Section Name                    Size  Type     From       To       Segment
 .vectSeg77_vect                    2     R     0xFFFE     0xFFFF   .vectSeg77
 
 Summary of section sizes per section type:
-READ_ONLY (R):         E23 (dec:     3619)
+READ_ONLY (R):         E21 (dec:     3617)
 READ_WRITE (R/W):       AC (dec:      172)
 NO_INIT (N/I):          55 (dec:       85)
 
@@ -248,7 +248,7 @@ MODULE:                 -- main_c.obj --
      moveMotor                                 E6D8       F      15       3   .text       
      tryAgain                                  E6E7       F      15       5   .text       
      sendDone                                  E6F6      19      25       1   .text       
-     main                                      E70F     3B4     948      24   .text       
+     main                                      E70F     3B2     946      24   .text       
 - VARIABLES:
      k_msgTempLim                              E09A       C      12       1   .rodata     
      k_optDirCw                                E0A6       4       4       1   .rodata     
@@ -352,31 +352,31 @@ MODULE:                 -- mc9s08qg8_c.obj --
      _DBGF                                     1814       2       2       0   .abs_section_1814
 MODULE:                 -- rtshc08.o (ansiis.lib) --
 - PROCEDURES:
-     _PUSH_ARGS_L                              EAC3      20      32       3   .text       
-     _ENTER_BINARY_L                           EAE3      16      22       2   .text       
-     _ENTER_BINARY_L_RC                        EAF9      19      25       3   .text       
-     _ENTER_BINARY_L_LC                        EB12      1A      26       1   .text       
-     _IDIVMOD                                  EB2C      69     105       2   .text       
-     _k_is_k_plus_j_l                          EB95      1E      30       2   .text       
-     _k_is_k_plus_j_i                          EBB3      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      EBC5      1F      31       2   .text       
-     _LMUL_k_is_k_mul_j                        EBE4      81     129       1   .text       
-     _LDIVMOD                                  EC65      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       ED09      17      23       1   .text       
-     _LCMP_k_rel_j                             ED20      1F      31       2   .text       
-     _IMUL_STAR08                              ED3F      27      39       2   .text       
-     _IDIVU_STAR08                             ED66       D      13       3   .text       
-     _IMODU_STAR08                             ED73      10      16       1   .text       
-     _IMODU_8                                  ED83      12      18       1   .text       
-     _ICMP                                     ED95      16      22       1   .text       
-     _LSUB                                     EDAB       6       6       1   .text       
-     _LSUB_RC                                  EDB1       6       6       1   .text       
-     _LMUL_RC                                  EDB7       6       6       4   .text       
-     _LDIVU_LC                                 EDBD       6       6       1   .text       
-     _LCMP                                     EDC3       6       6       1   .text       
-     _LCMP_RC                                  EDC9       6       6       1   .text       
-     _COPY                                     EDCF      30      48       1   .text       
-     _POP32                                    EDFF      1A      26       5   .text       
+     _PUSH_ARGS_L                              EAC1      20      32       3   .text       
+     _ENTER_BINARY_L                           EAE1      16      22       2   .text       
+     _ENTER_BINARY_L_RC                        EAF7      19      25       3   .text       
+     _ENTER_BINARY_L_LC                        EB10      1A      26       1   .text       
+     _IDIVMOD                                  EB2A      69     105       2   .text       
+     _k_is_k_plus_j_l                          EB93      1E      30       2   .text       
+     _k_is_k_plus_j_i                          EBB1      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      EBC3      1F      31       2   .text       
+     _LMUL_k_is_k_mul_j                        EBE2      81     129       1   .text       
+     _LDIVMOD                                  EC63      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       ED07      17      23       1   .text       
+     _LCMP_k_rel_j                             ED1E      1F      31       2   .text       
+     _IMUL_STAR08                              ED3D      27      39       2   .text       
+     _IDIVU_STAR08                             ED64       D      13       3   .text       
+     _IMODU_STAR08                             ED71      10      16       1   .text       
+     _IMODU_8                                  ED81      12      18       1   .text       
+     _ICMP                                     ED93      16      22       1   .text       
+     _LSUB                                     EDA9       6       6       1   .text       
+     _LSUB_RC                                  EDAF       6       6       1   .text       
+     _LMUL_RC                                  EDB5       6       6       4   .text       
+     _LDIVU_LC                                 EDBB       6       6       1   .text       
+     _LCMP                                     EDC1       6       6       1   .text       
+     _LCMP_RC                                  EDC7       6       6       1   .text       
+     _COPY                                     EDCD      30      48       1   .text       
+     _POP32                                    EDFD      1A      26       5   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -394,7 +394,7 @@ MODULE STATISTIC
   StringUtilis_c.obj                           0    422      0
   TemperatureManager_c.obj                     0     16      0
   TimersManager_c.obj                         16    424      0
-  main_c.obj                                   0   1003    118
+  main_c.obj                                   0   1001    118
   start08_c.obj                                0    132      0
   mc9s08qg8_c.obj                             85      0      0
   rtshc08.o (ansiis.lib)                       0    854      0
@@ -751,32 +751,32 @@ OBJECT LIST SORTED BY ADDRESS
      moveMotor                                 E6D8       F      15       3   .text       
      tryAgain                                  E6E7       F      15       5   .text       
      sendDone                                  E6F6      19      25       1   .text       
-     main                                      E70F     3B4     948      24   .text       
-     _PUSH_ARGS_L                              EAC3      20      32       3   .text       
-     _ENTER_BINARY_L                           EAE3      16      22       2   .text       
-     _ENTER_BINARY_L_RC                        EAF9      19      25       3   .text       
-     _ENTER_BINARY_L_LC                        EB12      1A      26       1   .text       
-     _IDIVMOD                                  EB2C      69     105       2   .text       
-     _k_is_k_plus_j_l                          EB95      1E      30       2   .text       
-     _k_is_k_plus_j_i                          EBB3      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      EBC5      1F      31       2   .text       
-     _LMUL_k_is_k_mul_j                        EBE4      81     129       1   .text       
-     _LDIVMOD                                  EC65      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       ED09      17      23       1   .text       
-     _LCMP_k_rel_j                             ED20      1F      31       2   .text       
-     _IMUL_STAR08                              ED3F      27      39       2   .text       
-     _IDIVU_STAR08                             ED66       D      13       3   .text       
-     _IMODU_STAR08                             ED73      10      16       1   .text       
-     _IMODU_8                                  ED83      12      18       1   .text       
-     _ICMP                                     ED95      16      22       1   .text       
-     _LSUB                                     EDAB       6       6       1   .text       
-     _LSUB_RC                                  EDB1       6       6       1   .text       
-     _LMUL_RC                                  EDB7       6       6       4   .text       
-     _LDIVU_LC                                 EDBD       6       6       1   .text       
-     _LCMP                                     EDC3       6       6       1   .text       
-     _LCMP_RC                                  EDC9       6       6       1   .text       
-     _COPY                                     EDCF      30      48       1   .text       
-     _POP32                                    EDFF      1A      26       5   .text       
+     main                                      E70F     3B2     946      24   .text       
+     _PUSH_ARGS_L                              EAC1      20      32       3   .text       
+     _ENTER_BINARY_L                           EAE1      16      22       2   .text       
+     _ENTER_BINARY_L_RC                        EAF7      19      25       3   .text       
+     _ENTER_BINARY_L_LC                        EB10      1A      26       1   .text       
+     _IDIVMOD                                  EB2A      69     105       2   .text       
+     _k_is_k_plus_j_l                          EB93      1E      30       2   .text       
+     _k_is_k_plus_j_i                          EBB1      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      EBC3      1F      31       2   .text       
+     _LMUL_k_is_k_mul_j                        EBE2      81     129       1   .text       
+     _LDIVMOD                                  EC63      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       ED07      17      23       1   .text       
+     _LCMP_k_rel_j                             ED1E      1F      31       2   .text       
+     _IMUL_STAR08                              ED3D      27      39       2   .text       
+     _IDIVU_STAR08                             ED64       D      13       3   .text       
+     _IMODU_STAR08                             ED71      10      16       1   .text       
+     _IMODU_8                                  ED81      12      18       1   .text       
+     _ICMP                                     ED93      16      22       1   .text       
+     _LSUB                                     EDA9       6       6       1   .text       
+     _LSUB_RC                                  EDAF       6       6       1   .text       
+     _LMUL_RC                                  EDB5       6       6       4   .text       
+     _LDIVU_LC                                 EDBB       6       6       1   .text       
+     _LCMP                                     EDC1       6       6       1   .text       
+     _LCMP_RC                                  EDC7       6       6       1   .text       
+     _COPY                                     EDCD      30      48       1   .text       
+     _POP32                                    EDFD      1A      26       5   .text       
      _Vector_16                                FFDE       2       2       0   .abs_section_ffde
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
      _Vector_12                                FFE6       2       2       0   .abs_section_ffe6
@@ -785,8 +785,6 @@ OBJECT LIST SORTED BY ADDRESS
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
-StringUtilis_c.obj:
-  StringUtils_setSize 
 TimersManager_c.obj:
   TimersMngr_StopTimer TimersMngr_SetPointer 
 rtshc08.o (ansiis.lib):
@@ -807,8 +805,6 @@ rtshc08.o (ansiis.lib):
 NOT USED VARIABLES
 DistanceManager_c.obj:
   distanceConstant 
-StringUtilis_c.obj:
-  size 
 main_c.obj:
   k_clockWise k_counterClockWise k_msgDistanceSize k_msgTempLimSize 
   k_optTempLimSize k_numAfterDec k_optRpsSize k_optDegreeSize k_optDirCwSize 
@@ -821,7 +817,7 @@ rtshc08.o (ansiis.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xEE19 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xEE17 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1123,5 +1119,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 3619
+Total size of all blocks to be downloaded: 3617
 

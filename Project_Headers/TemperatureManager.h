@@ -3,9 +3,7 @@
 * @author(s): Daniela Becerra, Jesús Barroso
 *
 * @brief (User's Manual)
-* This manager controls how we are using the ADC Module(Register, Operation mode, Number of Channel)
-*
-* You can change between channels
+* HIL layer above the ADC . We will read temperature and display the degrees read in Celsius
 *
 ***************** */
 
@@ -28,19 +26,26 @@
 void TemperatureManager_Init(void);
 /*!*-----------------------------------------------------------------------------------------------
 * \name     TemperatureManager_Init
-* \brief    Initalizes the ADC module used for the ADC manager.
+* \brief    Initalizes the ADC module
 * \param    void
 * \return   void
 -------------------------------------------------------------------------------------------------*/
 
-bool TEMPERATUE_isDataReady(void);
+/*!*-----------------------------------------------------------------------------------------------
+* \name     TemperatureManager_isDataReady
+* \brief    Verifies if the conversion of data is ready to be read
+* \param    void
+* \return   bool
+-------------------------------------------------------------------------------------------------*/
+bool TemperatureManager_isDataReady(void);
 
-u16 TemperatureManager_Read(void);
 /*!*-----------------------------------------------------------------------------------------------
 * \name     TemperatureManager_Read
-* \brief    Reads ADCRL register when COCO FLAG is on
+* \brief    Reads the latest conversion of analog to digital temperature
 * \param    void
-* \return   void
+* \return   u16 temperature
 -------------------------------------------------------------------------------------------------*/
+u16 TemperatureManager_Read(void);
+
 
 #endif 

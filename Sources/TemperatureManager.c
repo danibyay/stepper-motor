@@ -1,10 +1,10 @@
 /*! **************************
 *
-* @file: ADC_Manager.c
+* @file: Temperature_Manager.c
 * @author(s): Daniela Becerra, Jesús Barroso
 *
 * @brief
-*Includes two basic functions of the ADC
+*     HIL layer above the ADC, We will read temperature from the microcontroller and display the degrees read
 *
 ************************** */
 

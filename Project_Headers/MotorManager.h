@@ -24,8 +24,8 @@
 /*************************************************************************************************/
 
 #define MOTOR_PORT				B	/* Specify the digital port where the LED string is connected */
-#define MOTOR_PIN_START		2   /* Specify the starting pin on the digital port where teh LED String is connected */
-#define MOTOR_NUMBER_OF_PINS 4 /* How many pins will be used for this string */
+#define MOTOR_PIN_START		    2   /* Specify the starting pin on the digital port where teh LED String is connected */
+#define MOTOR_NUMBER_OF_PINS    4 /* How many pins will be used for this string */
 
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/

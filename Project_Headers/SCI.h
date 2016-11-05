@@ -2,12 +2,11 @@
  * 2016  ITESM Campus Guadalajara. Laboratorio de Microcontroladores
  *
  * @file:      	SCI.h
- * @author(s): 	Hermes de la Rosa Luna
- * 				Benjamín Muñoz Correa
+ * @author(s): 	Daniela Becerra
+ * 				JEsus Martin
  *
  * @brief (User's Manual):
- *    This is a simple SCI driver for the 9S08QG8 MCU. It provides only macro-like functions to
- *    reduce code footprint.
+ *    SCI driver for the Freescale S08QG8 Microcontroller.
  *
  **************************************************************************************************/
 
@@ -79,15 +78,15 @@
 
 /*!*-----------------------------------------------------------------------------------------------
 * \name     SCI_InitTx
-* \brief    Initializes the ADC configuration registers
+* \brief    Initializes the SCI configuration registers
 * \param    void
 * \return   void
 -------------------------------------------------------------------------------------------------*/
 void SCI_InitTx(void);
 
 /*!*-----------------------------------------------------------------------------------------------
-* \name     ADC_InitRx
-* \brief    Initializes the ADC configuration registers
+* \name     SCI_InitRx
+* \brief    Enables transmission
 * \param    void
 * \return   void
 -------------------------------------------------------------------------------------------------*/
@@ -109,7 +108,20 @@ void SCI_SendMessage(const u8 msg[], u8 size);
 -------------------------------------------------------------------------------------------------*/
 bool SCI_TxIsBusy(void);
 
+/*!*-----------------------------------------------------------------------------------------------
+* \name     SCI_SetRxCallBack
+* \brief    sets which callback function will be performed when the interruption is fired
+* \param   	callback function
+* \return   void
+-------------------------------------------------------------------------------------------------*/
 void SCI_SetRxCallBack(ISR_callback function);
+
+/*!*-----------------------------------------------------------------------------------------------
+* \name     SCI_getChar
+* \brief    returns the data in the serial data register
+* \param   	void 
+* \return   char, the byte of data
+-------------------------------------------------------------------------------------------------*/
 char SCI_getChar(void);
 
 #endif 
