@@ -4,7 +4,7 @@
 *
 *
 ***************** */
-
+//Includes a function to initialize a timer, and a function to calculate delays in microseconds
 /*********************						Includes						**********************/
 #include "DelayManager.h"
 #include "types.h"

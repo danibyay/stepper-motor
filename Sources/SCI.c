@@ -1,13 +1,11 @@
 /*! **********************************************************************************************
 * 2016  ITESM Campus Guadalajara. Laboratorio de Microcontroladores 
-*  
 *
-* @file:      MTIM.c
-* @author(s): Hermes de la Rosa Luna
-* 			  Benjamin Muñoz Correa
+* @author(s): Daniela Becerra, Jesús Barroso
 *
-* @brief (Theory of Operation)
-*     This driver configures the ADC module of the microcontroler
+* @brief
+*Include functions to initialize TX and RX, send a message and a calback funtion to the Rx to correctly 
+*store values.
 *
 **************************************************************************************************/
 

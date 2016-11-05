@@ -1,3 +1,14 @@
+/*! **************************
+*
+* @file:MessageMAnager.c
+* @author(s): Daniela Becerra, Jesús Barroso
+*
+* @brief
+* The message Manager is used to correctly send and store messages from a UART using two buffers.
+*
+************************** */
+
+/*********************						Includes						**********************/
 #include "MessageManager.h"
 #include "SCI.h"
 #include "types.h"

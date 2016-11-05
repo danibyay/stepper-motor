@@ -3,6 +3,7 @@
 * @file: DirectionManager.c
 * @author(s): Daniela Becerra, Jesús Martín Barroso
 *
+//Includes functions to set the direction for rotating the stepper motor
 ************************** */
 
 /*********************				   Includes					**********************/

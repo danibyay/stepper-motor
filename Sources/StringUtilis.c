@@ -1,9 +1,14 @@
-/*
- * StringUtilis.c
- *
- *  Created on: Oct 30, 2016
- *      Author: Jesus Martin, Daniela Becerra
- */
+/*! **************************
+*
+* @file: StringUtilis.c
+* @author(s): Daniela Becerra, Jesús Barroso
+*
+* @brief
+*Include basic functions to convert from strings to numbers, numbers to string and
+* to compare if two strings are equals.
+*
+************************** */
+
 #include "types.h"
 
 #define DECIMAL_TO_ASCII 0x30
